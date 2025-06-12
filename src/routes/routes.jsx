@@ -5,32 +5,29 @@ import Login from "@/pages/login/login_page";
 import { createBrowserRouter } from "react-router";
 import ProtectedRoute from "@/routes/protect_route";
 
-const ProtectedComponent = ({ component: Component, }) => (
-  <ProtectedRoute>
-    <Component />
-  </ProtectedRoute>
-);
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedComponent component={MainLayout} />,
+    element: (
+      <ProtectedRoute>
+        <MainLayout />
+      </ProtectedRoute>
+    ),
     children: [
       {
         index: true,
-        Component: Dashboard
+        element: <Dashboard />,
       },
       {
         path: "customers",
-        Component: Customers
+        element: <Customers />,
       },
     ],
   },
   {
     path: "/login",
-    Component: Login ,
+    element: <Login />,
   },
 ]);
 
 export default router;
-

@@ -1,9 +1,9 @@
-function Customers () {
-    return (
-        <>
-            <h1>Customers Page</h1>
-        </>
-    )
+function Customers() {
+  return (
+    <>
+      <h1>Customers Page</h1>
+    </>
+  );
 }
 
 export default Customers;
