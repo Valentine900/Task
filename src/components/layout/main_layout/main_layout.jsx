@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router";
 import { Box, Stack, Flex, Text, Heading, Image } from "@chakra-ui/react";
-import CustomNavLink from "@/components/layout/nav_link.jsx";
+import CustomNavLink from "@/components/ui/nav_link.jsx";
 import {
   SquaresFour,
   UserList,
@@ -9,28 +9,16 @@ import {
   GearSix,
   CheckCircle,
 } from "phosphor-react";
-import { useAuth } from "@/auth_context";
+import { useAuth } from "@/components/model/auth_context";
 
 import logoImage from "@/assets/Logo.svg";
 
 function MainLayout() {
-  const navigate = useNavigate();
-  const { isAuth } = useAuth();
-
-  useEffect(() => {
-    if (!isAuth) {
-      navigate("/login");
-    }
-  }, [isAuth, navigate]);
+  const [isAuth, setAuth] = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    navigate("/login");
+    setAuth(false);
   };
-
-  if (!isAuth) {
-    return null;
-  }
 
   return (
     <Box display="flex">

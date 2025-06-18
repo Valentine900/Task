@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router"; 
+import { useNavigate } from "react-router";
 import {
   Box,
   Text,
@@ -10,12 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import logoImage from "@/assets/Logo.svg";
-import InputField from "@/components/layout/input_field";
-import { useAuth } from "@/auth_context";
+import InputField from "@/components/ui/input_field";
+import { useAuth } from "@/components/model/auth_context";
 
 function Login() {
-  const navigate = useNavigate();
-  const { isAuth, setIsAuth } = useAuth();
+  const [isAuth, setAuth] = useAuth();
 
   const {
     register,
@@ -27,9 +26,7 @@ function Login() {
     const { email, password } = data;
 
     if (email === "admin" && password === "admin") {
-      setIsAuth(true);
-      localStorage.setItem("isAuthenticated", "true");
-      navigate("/");
+      setAuth(true);
     } else {
       alert("Incorrect login or password");
     }

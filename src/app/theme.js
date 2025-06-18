@@ -49,3 +49,6 @@ const config = defineConfig({
 });
 
 export default config;
+
+//дефолтные:
+//тени, цвета, шрифты, бордер радиусы, размеры, кнопки
