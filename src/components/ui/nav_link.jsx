@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, Box } from "@chakra-ui/react";
 
 const CustomNavLink = ({ to, icon: Icon, children }) => {
   return (
@@ -7,15 +7,18 @@ const CustomNavLink = ({ to, icon: Icon, children }) => {
       {({ isActive }) => (
         <Flex
           align="center"
-          p="2"
-          gap="2"
-          borderRadius="lg"
+          padding="small"
+          gap="small"
+          borderRadius="medium2"
           bg={isActive ? "gray.100" : "transparent"}
           color="gray.900"
           fontSize="small2"
+          fontFamily="main"
         >
-          {Icon && <Icon size={20} />}
-          <Text fontWeight="medium">{children}</Text>
+          {Icon ? <Icon size={20} /> : <Box width={5}  />}
+          <Text texAlign="center" fontWeight="medium" lineHeight="small2" >
+            {children}
+          </Text>
         </Flex>
       )}
     </NavLink>

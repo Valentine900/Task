@@ -9,7 +9,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import logoImage from "@/assets/Logo.svg";
+import logoForLogin from "@/assets/Logo for login.svg";
 import InputField from "@/components/ui/input_field";
 import { useAuth } from "@/components/model/auth_context";
 
@@ -42,24 +42,25 @@ function Login() {
       <Box
         align="center"
         width="500px"
-        padding="20px"
-        boxShadow="0px 8px 40px 0px #00000014"
-        borderRadius="16px"
+        padding="big"
+        boxShadow="variant_b"
+        borderRadius="big"
       >
         <Flex justify="center">
           <Image
-            src={logoImage}
+            src={logoForLogin}
             width="51px"
             height="51px"
             objectFit="contain"
-            marginBottom="8px"
+            marginBottom="small"
           />
         </Flex>
         <Heading
-          color="#111111"
+          color="another.bl"
           fontSize="big2"
           fontWeight="medium"
           textAlign="center"
+          fontFamily="main"
         >
           Welcome back
         </Heading>
@@ -68,6 +69,7 @@ function Login() {
           fontSize="small2"
           fontWeight="normal"
           textAlign="center"
+          fontFamily="main"
         >
           Sign in to access your dashboard, tasks and clients.
         </Text>
@@ -86,13 +88,14 @@ function Login() {
             name="password"
             type="password"
           />
-          <Flex justify="flex-end" marginTop="8px">
+          <Flex justify="flex-end" marginTop="small">
             <Link
               _hover={{ textUnderlineOffset: "unset" }}
               color="main.600"
               textDecoration="underline"
-              fontSize="14px"
-              fontWeight="500"
+              fontSize="small"
+              fontWeight="medium"
+              fontFamily="main"
             >
               Forgot password?
             </Link>
@@ -100,12 +103,13 @@ function Login() {
           <Button
             type="submit"
             width="100%"
-            bg="#1A1A1B"
-            color="#ffffff"
-            borderRadius="16px"
-            p="13px"
-            marginTop="24px"
+            bg="another.btn_log_in"
+            color="another.bg"
+            borderRadius="big"
+            p="medium2"
+            mt="big2"
             fontSize="small2"
+            fontFamily="main"
           >
             Log in
           </Button>
