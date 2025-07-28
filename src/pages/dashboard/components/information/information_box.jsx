@@ -1,24 +1,16 @@
 import { Box, Text, Badge, Flex } from "@chakra-ui/react";
 import { ArrowUpRight } from "phosphor-react";
 
-const colorMap = {
-  1: "main.400",
-  2: "another.delayed",
-  3: "another.failure",
-  4: "another.processed",
-};
-
 const InformationBox = ({
   label,
   number,
-  numberSize,
-  textColor,
-  showBadge,
-  pointColorCode,
-  showPoint,
-  numberRed,
+  numberSize="big2",
+  textColor="gray.400",
+  showBadge=false,
+  pointColor,
+  isAlert=false,
 }) => {
-  const pointColor = colorMap[pointColorCode] || "gray.400";
+  pointColor || "gray.400";
 
   return (
     <Flex
@@ -32,7 +24,7 @@ const InformationBox = ({
       gap="small"
     >
       <Flex alignItems="center" gap="little">
-        {showPoint && (
+        {pointColor && (
           <Box
             width="8px"
             height="8px"
@@ -45,7 +37,7 @@ const InformationBox = ({
           fontSize="small"
           fontFamily="main"
           fontWeight="normal"
-          color={textColor ? "gray.400" : "gray.500"}
+          color={textColor}
           whiteSpace="nowrap"
         >
           {label}
@@ -53,10 +45,10 @@ const InformationBox = ({
       </Flex>
       <Flex alignItems="center" gap="little2">
         <Text
-          fontSize={numberSize ? "big2" : "small2"}
+          fontSize={numberSize}
           fontFamily="main"
           fontWeight="medium"
-          color={numberRed ? "red.800" : "gray.900"}
+          color={isAlert ? "red.800" : "gray.900"}
         >
           {number}
         </Text>

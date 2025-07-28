@@ -13,6 +13,40 @@ import ReportCard from "./components/reports/report_item";
 import NotificationItem from "./components/notifications/notification_item";
 import Container from "@/components/ui/container";
 
+const customersStatic = {
+  inProgress: {
+    label: "In progress",
+    pointColor: "main.400",
+  },
+  delayed: {
+    label: "Delayed",
+    pointColor: "another.delayed",
+  },
+  failed: {
+    label: "Failed",
+    pointColor: "another.failure",
+  },
+  processed: {
+    label: "Processed",
+    pointColor: "another.processed",
+  },
+};
+
+const tasksStatic = {
+  dueToday: {
+    label: "Due Today",
+  },
+  overdue: {
+    label: "Overdue",
+  },
+  doneToday: {
+    label: "Done Today",
+  },
+  average: {
+    label: "Average on Time",
+  },
+};
+
 function Dashboard() {
   return (
     <Flex direction="column" gap="24px">
@@ -33,17 +67,12 @@ function Dashboard() {
 
           <Container title="Customers" showSelect={true}>
             <Flex gap="medium3">
-              {customersData.map((item) => (
+              {Object.entries(customersData).map(([key, value]) => (
                 <InformationBox
-                  key={item.id}
-                  label={item.label}
-                  number={item.number}
-                  numberRed={item.numberRed}
-                  numberSize={item.numberSize}
-                  textColor={item.textColor}
-                  showBadge={item.showBadge}
-                  pointColorCode={item.pointColorCode}
-                  showPoint={item.showPoint}
+                  key={key}
+                  number={value}
+                  label={customersStatic[key].label }
+                  pointColor={customersStatic[key].pointColor }
                 />
               ))}
             </Flex>
@@ -52,23 +81,32 @@ function Dashboard() {
           {/*Tasks*/}
 
           <Container title="Tasks" showSelect={true}>
-            <Flex gap="medium3">
-              {tasksData.map((item) => (
-                <InformationBox
-                  key={item.id}
-                  label={item.label}
-                  number={item.number}
-                  numberRed={item.numberRed}
-                  numberSize={item.numberSize}
-                  textColor={item.textColor}
-                  showBadge={item.showBadge}
-                  pointColorCode={item.pointColorCode}
-                  showPoint={item.showPoint}
-                />
-              ))}
-            </Flex>
-          </Container>
+  <Flex gap="medium3">
+    {Object.entries(tasksData).map(([key, value]) => {
+      // Игнорируем ключи, которые заканчиваются на "Diff"
+      if (key.endsWith("Diff")) return null;
 
+      const taskInfo = tasksStatic[key];
+      if (!taskInfo) return null; // пропускаем, если static для ключа нет
+
+      const diffKey = `${key}Diff`;
+      const diffValue = tasksData[diffKey];
+
+      return (
+        <InformationBox
+          key={key}
+          label={taskInfo.label}
+          number={value}
+          diff={diffValue} // если нужно передать diff
+          isAlert={
+            (taskInfo.label === "Due Today" && value >= 20) ||
+            taskInfo.label === "Overdue"
+          }
+        />
+      );
+    })} {/* добавлена закрывающая скобка для map */}
+  </Flex>
+</Container>
           {/*Team*/}
 
           <Container>
@@ -128,12 +166,9 @@ function Dashboard() {
                   key={item.id}
                   label={item.label}
                   number={item.number}
-                  numberRed={item.numberRed}
-                  numberSize={item.numberSize}
-                  textColor={item.textColor}
+                  numberSize={"small2"}
+                  textColor={"gray.500"}
                   showBadge={item.showBadge}
-                  pointColorCode={item.pointColorCode}
-                  showPoint={item.showPoint}
                 />
               ))}
             </Flex>

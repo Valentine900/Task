@@ -3,14 +3,23 @@ import avatar2 from "@/assets/Ellipse 58.png";
 import avatar3 from "@/assets/Ellipse 57.png";
 import avatar4 from "@/assets/Ellipse 56.png";
 import avatar5 from "@/assets/Ellipse 55.png";
-import { NetworkX, TreeStructure, CardsThree, UserCircle, SquaresFour, UserList, GearSix, CheckCircle } from "@phosphor-icons/react";
+import {
+  NetworkX,
+  TreeStructure,
+  CardsThree,
+  UserCircle,
+  SquaresFour,
+  UserList,
+  GearSix,
+  CheckCircle,
+} from "@phosphor-icons/react";
 
 export const users = [
   {
-    avatarSrc: avatar1, 
+    avatarSrc: avatar1,
     userName: "Alfredo Baptista",
     stats: [
-      { value: "27", isRed: true},
+      { value: "27", isRed: true },
       { value: "5", isRed: true },
       { value: "22" },
     ],
@@ -18,11 +27,7 @@ export const users = [
   {
     avatarSrc: avatar2,
     userName: "James Siphron",
-    stats: [
-      { value: "17" },
-      { value: "0" },
-      { value: "17" },
-    ],
+    stats: [{ value: "17" }, { value: "0" }, { value: "17" }],
   },
   {
     avatarSrc: avatar3,
@@ -45,109 +50,64 @@ export const users = [
   {
     avatarSrc: avatar5,
     userName: "James Aminoff",
-    stats: [
-      { value: "12" },
-      { value: "0" },
-      { value: "12" },
-    ],
+    stats: [{ value: "12" }, { value: "0" }, { value: "12" }],
   },
 ];
 
-export const customersData = [
-  {
-    id: 1,
-    pointColorCode: "1", 
-    label: "In processing",
-    number: "24",  
-    numberSize: true,
-    textColor: true,
-    showPoint: true,
-  },
-  {
-    id: 2,
-    pointColorCode: "2",
-    label: "Delayed",
-    number: "8",
-    numberSize: true,
-    textColor: true,
-    showPoint: true,
-  },
-  {
-    id: 3,
-    pointColorCode: "3", 
-    label: "In processing",
-    number: "3",
-    numberSize: true,
-    textColor: true,
-    showPoint: true,
-  },
-  {
-    id: 4,
-    pointColorCode: "4",
-    label: "Processed",
-    number: "15",
-    numberSize: true,
-    textColor: true,
-    showPoint: true,
-  },
-];
+export const customersData = {
+  inProgress: 24,
+  delayed: 8,
+  failed: 3,
+  processed: 15,
+};
 
-export const tasksData = [
-  {
-    id: 1, 
-    label: "Due Today",
-    number: "27",
-    numberRed: true,    
-    numberSize: true,
-    textColor: true,
-  },
-  {
-    id: 2,
-    label: "Overdue",
-    number: "5",
-    numberRed: true,
-    numberSize: true,
-    textColor: true,
-  },
-  {
-    id: 3, 
-    label: "Done Today",
-    number: "22",
-    numberSize: true,
-    textColor: true,
-  },
-  {
-    id: 4,
-    label: "Average on Time",
-    number: "30%",
-    numberSize: true,
-    textColor: true,
-    showBadge: true,
-  },
-];
+// export const tasksData = [
+//   {
+//     label: "Due Today",
+//     number: "27",
+//   },
+//   {
+//     label: "Overdue",
+//     number: "5",
+//   },
+//   {
+//     label: "Done Today",
+//     number: "22",
+//   },
+//   {
+//     label: "Average on Time",
+//     number: "30%",
+//     showBadge: true,
+//   },
+// ];
+
+export const tasksData = {
+  dueToday: 27,
+  dueTodayDiff: 0,
+  overdue: 5,
+  overdueDiff: 0,
+  doneToday: 22,
+  doneTodayDiff: 0,
+  average: 30,
+  averageDiff: 4,
+};
 
 export const teamData = [
   {
-    id: 1, 
     label: "Due Today",
-    number: "5",      
+    number: "5",
   },
   {
-    id: 2,
     label: "Overdue",
     number: "107",
   },
   {
-    id: 3, 
     label: "Done Today",
     number: "96",
-    numberRed: true,
   },
   {
-    id: 4,
     label: "Average on Time",
-    number: "11",    
-    numberRed: true, 
+    number: "11",
   },
 ];
 
@@ -270,7 +230,7 @@ export const navLinks = [
   {
     to: "/*",
     icon: CardsThree,
-    label: "Tasks",  
+    label: "Tasks",
   },
   {
     to: "/*",
@@ -282,11 +242,11 @@ export const navLinks = [
     icon: null,
     label: "Backlog",
   },
-  
+
   {
     isDivider: true,
   },
-  
+
   {
     to: "/*",
     icon: TreeStructure,
