@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
-import { Box, Input, Text, Heading } from "@chakra-ui/react";
+import { Box, Input, Heading, Text, Button } from "@chakra-ui/react";
 
 function Customers() {
   const [customers, setCustomers] = useState([]);
   const [filteredCustomers, setFilteredCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortConfig, setSortConfig] = useState({key: null, direction: "asc"});
+
+  const [currentPage, setCurrrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     fetch("https://dummyjson.com/users")
@@ -15,7 +18,7 @@ function Customers() {
         setCustomers(data.users);
         setFilteredCustomers(data.users);
       })
-      .catch((error) => console.error("Ошибка загрузки данных:", error));
+      .catch((error) => console.error("loading error:", error));
   }, []);
 
   useEffect(() => {
@@ -27,6 +30,7 @@ function Customers() {
         user.email.toLowerCase().includes(lowerSearch)
     );
     setFilteredCustomers(filtered);
+    setCurrrentPage(1);
   }, [searchTerm, customers]);
 
   const handleSort = (key) => {
@@ -50,6 +54,21 @@ function Customers() {
       return 0;
     });
     setFilteredCustomers(sorted);
+  };
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentCustomers = filteredCustomers.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredCustomers.length / itemsPerPage);
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) setCurrrentPage(currentPage - 1);
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) setCurrrentPage(currentPage + 1);
   };
 
   return (
@@ -117,7 +136,7 @@ function Customers() {
         </Box>
       </Box>
 
-      {filteredCustomers.map((user) => (
+      {currentCustomers.map((user) => (
         <Box
           key={user.id}
           display="flex"
@@ -134,6 +153,18 @@ function Customers() {
           <Box flex={2}>{user.email}</Box>
         </Box>
       ))}
+
+      <Box display="flex" justifyContent="center" alignItems="center" mt="big2" gap="big">
+        <Button onClick={handlePrevPage} disabled={currentPage === 1} bg="gray.200" color="gray.950" fontFamily="main" fontWeight="medium">
+          Prev
+        </Button>
+        <Text fontFamily="main" fontWeight="medium">
+          Page {currentPage} of {totalPages}
+        </Text>
+        <Button onClick={handleNextPage} disabled={currentPage === totalPages} bg="gray.200" fontFamily="main" fontWeight="medium" color="gray.950">
+          Next
+        </Button>
+      </Box>
     </Box>
   );
 }
