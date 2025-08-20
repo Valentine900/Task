@@ -1,37 +1,22 @@
 import { useState, useEffect, useMemo } from "react";
 import { format } from "date-fns";
 import { Box, Input, Heading, Text, Button } from "@chakra-ui/react";
+import {useCustomersQuery} from "@/api/customers/customers.query.js";
 
 function Customers() {
-  const [customers, setCustomers] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(""); 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
-  const [totalCount, setTotalCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+
+  const {isLoading: loading, data} = useCustomersQuery(currentPage, itemsPerPage)
+
+  const customers = data?.users || [];
+  const totalCount = data?.total || 0;
 
   const [timeoutId, setTimeoutId] = useState(null);
-
-  const fetchCustomers = async (page) => {
-    setLoading(true);
-    const skip = (page - 1) * itemsPerPage;
-    try {
-      const res = await fetch(`https://dummyjson.com/users?limit=${itemsPerPage}&skip=${skip}`);
-      const data = await res.json();
-      setCustomers(data.users);
-      setTotalCount(data.total);
-    } catch (error) {
-      console.error("Loading error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchCustomers(currentPage);
-  }, [currentPage]);
 
   useEffect(() => {
     if (timeoutId) {
@@ -49,7 +34,7 @@ function Customers() {
 
   const currentUsers = useMemo(() => {
 
-    const filtered = customers.filter((user) => {
+    const filtered = (customers || []).filter((user) => {
       const searchLower = debouncedSearchTerm.toLowerCase();
       return (
         user.firstName.toLowerCase().includes(searchLower) ||

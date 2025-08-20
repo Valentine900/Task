@@ -1,5 +1,38 @@
 import { Box, Text, Badge, Flex } from "@chakra-ui/react";
 import { ArrowUpRight } from "phosphor-react";
+import {useMemo} from "react";
+
+const Card = ({variant, children, ...props}) => {
+  const flexProps = useMemo(() => {
+    switch (variant) {
+      default:
+      case "primary":
+        return {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          bg: "another.wh",
+          borderRadius: "big",
+          padding: "medium3",
+        }
+      case "secondary":
+        return {
+          pt: "medium",
+          px: "medium",
+          pb: "small",
+          flex: "1 1 10px",
+          direction: "column",
+          bg: "another.bg",
+          borderRadius: "medium",
+          gap: "small",
+        }
+    }
+  }, [variant])
+
+  return <Flex {...flexProps} {...props}>{children}</Flex>
+}
+
 
 const InformationBox = ({
   label,

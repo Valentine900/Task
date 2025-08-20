@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, } from "react";
 import { useNavigate } from "react-router";
+import {apiClient} from "@/api/apiClient.js";
 
 
 const AuthContext = createContext();
@@ -25,6 +26,12 @@ export const useAuth = () => {
     setAuthContext(value);
     if (value) {
       localStorage.setItem("isAuthenticated", "true");
+      apiClient.interceptors.request.use(req => {
+        if (value) {
+          req.headers.Authorization = `Bearer ${value}`;
+        }
+        return req;
+      })
       navigate("/");
     }
     else {
